@@ -1,47 +1,32 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Alert, Form, Button } from "react-bootstrap";
+import "../styles/FormStyles.css";
+import { useServices } from "../services/useServices";
 
-const NewsLetterForm = () => {
-  const [email, setEmail] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+type NewsLetterFormProps = {
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+};
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (email === "") {
-      setErrorMessage("Please enter your email.");
-    } else if (!validateEmail(email)) {
-      setErrorMessage("Please enter a valid email address.");
-    } else {
-      setSuccessMessage(
-        `Thank you! Your email (${email}) has been successfully submitted.`
-      );
-      setEmail("");
-      setErrorMessage("");
-    }
-  };
-
-  const validateEmail = (email: string) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-  };
+const NewsLetterForm = ({ handleSubmit }: NewsLetterFormProps) => {
+  const {
+    successMessage,
+    errorMessage,
+    handleEmailChange,
+    email,
+    setErrorMessage,
+  } = useServices();
 
   useEffect(() => {
-    if (successMessage) {
+    if (errorMessage) {
       const timer = setTimeout(() => {
-        setSuccessMessage("");
-      }, 2000); // Cambia el valor 2000 a la cantidad de milisegundos que deseas que el mensaje se muestre antes de desaparecer
+        setErrorMessage("");
+      }, 2000);
 
       return () => {
         clearTimeout(timer);
       };
     }
-  }, [successMessage]);
+  }, [errorMessage]);
 
   return (
     <div className="container">
@@ -49,18 +34,30 @@ const NewsLetterForm = () => {
       <Form onSubmit={handleSubmit} className="d-flex flex-column">
         <Form.Group controlId="formEmail">
           <Form.Label>Email Address</Form.Label>
+          <Form.Label
+            style={{
+              position: "relative",
+              left: "7rem",
+              display: errorMessage ? "" : "none",
+              color: "red",
+            }}
+          >
+            {errorMessage ? "Valid email required" : "Email Address"}
+          </Form.Label>
+
           <Form.Control
             type="email"
             placeholder="email@company.com"
             value={email}
             onChange={handleEmailChange}
+            className={errorMessage ? "error-input" : ""}
           />
         </Form.Group>
         <Button type="submit" variant="dark">
           Subscribe to monthly newsletter
         </Button>
       </Form>
-      {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+      {/* {errorMessage && <Alert variant="danger">{errorMessage}</Alert>} */}
     </div>
   );
 };

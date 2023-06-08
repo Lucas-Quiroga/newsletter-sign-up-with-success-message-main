@@ -1,9 +1,13 @@
 import iconList from "./../assets/images/icon-list.svg";
 import NewsLetterForm from "./NewsLetterForm";
 
-const Info = () => {
+type InfoProps = {
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+};
+
+const Info = ({ handleSubmit }: InfoProps) => {
   return (
-    <div className="container" style={{ height: "100vh", background: "red" }}>
+    <div className="container">
       <h1 className="dark">Stay updated!s</h1>
       <p>Join 60,000+ product managers receiving monthly updates on:</p>
       <div>
@@ -22,7 +26,7 @@ const Info = () => {
           <span>And much more!</span>
         </div>
       </div>
-      <NewsLetterForm />
+      <NewsLetterForm handleSubmit={handleSubmit} />
       <div className="attribution">
         Challenge by{" "}
         <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">

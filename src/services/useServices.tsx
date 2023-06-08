@@ -23,7 +23,7 @@ export const useServices = () => {
       // );
       setEmail("");
       setErrorMessage("");
-      return setEmailVerified(true);
+      setEmailVerified(!emailVerified);
     }
   };
 

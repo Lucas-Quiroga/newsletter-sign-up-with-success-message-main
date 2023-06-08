@@ -1,20 +1,38 @@
-import { useEffect } from "react";
-import { Alert, Form, Button } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Form, Button } from "react-bootstrap";
 import "../styles/FormStyles.css";
-import { useServices } from "../services/useServices";
+// import { useServices } from "../services/useServices";
 
-type NewsLetterFormProps = {
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-};
+// type NewsLetterFormProps = {
+//   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+// };
 
-const NewsLetterForm = ({ handleSubmit }: NewsLetterFormProps) => {
-  const {
-    successMessage,
-    errorMessage,
-    handleEmailChange,
-    email,
-    setErrorMessage,
-  } = useServices();
+const NewsLetterForm = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [email, setEmail] = useState("");
+  const [validate, setValidate] = useState(false);
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const validateEmail = (email: string) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (validateEmail(email)) {
+      console.log("el correo está bien");
+      setValidate(true);
+    } else {
+      setErrorMessage("está mal");
+      console.log("el correo está mal");
+    }
+  };
+  // const { errorMessage, handleEmailChange, email, setErrorMessage } =
+  //   useServices();
 
   useEffect(() => {
     if (errorMessage) {
@@ -29,8 +47,7 @@ const NewsLetterForm = ({ handleSubmit }: NewsLetterFormProps) => {
   }, [errorMessage]);
 
   return (
-    <div className="container">
-      {successMessage && <Alert variant="success">{successMessage}</Alert>}
+    <div className="container mt-5">
       <Form onSubmit={handleSubmit} className="d-flex flex-column">
         <Form.Group controlId="formEmail">
           <Form.Label>Email Address</Form.Label>
@@ -57,7 +74,6 @@ const NewsLetterForm = ({ handleSubmit }: NewsLetterFormProps) => {
           Subscribe to monthly newsletter
         </Button>
       </Form>
-      {/* {errorMessage && <Alert variant="danger">{errorMessage}</Alert>} */}
     </div>
   );
 };

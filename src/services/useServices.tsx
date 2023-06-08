@@ -1,44 +1,30 @@
-import { useState } from "react";
+// import { useState } from "react";
 
-export const useServices = () => {
-  const [emailVerified, setEmailVerified] = useState(false);
-  const [email, setEmail] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+// interface Services {
+//   // successMessage: string;
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+//   email: string;
+//   emailVerified: boolean;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+//   // setSuccessMessage: (message: string) => void;
+//   errorMessage: string;
+//   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
+//   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+//   handleEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+// }
 
-    if (email === "") {
-      setErrorMessage("Please enter your email.");
-    } else if (!validateEmail(email)) {
-      setErrorMessage("Please enter a valid email address.");
-    } else {
-      // setSuccessMessage(
-      //   `Thank you! Your email (${email}) has been successfully submitted.`
-      // );
-      setEmail("");
-      setErrorMessage("");
-      setEmailVerified(!emailVerified);
-    }
-  };
+// export const useServices = (): Services => {
+//   const [emailVerified, setEmailVerified] = useState(false);
 
-  const validateEmail = (email: string) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-  };
-  return {
-    successMessage,
-    setSuccessMessage,
-    errorMessage,
-    setErrorMessage,
-    handleSubmit,
-    handleEmailChange,
-    email,
-    emailVerified,
-  };
-};
+//   // const [successMessage, setSuccessMessage] = useStatef);
+
+//   return {
+//     errorMessage,
+//     email,
+//     emailVerified,
+
+//     setErrorMessage,
+//     handleSubmit,
+//     handleEmailChange,
+//   };
+// };

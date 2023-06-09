@@ -1,30 +1,39 @@
-// import { useState } from "react";
+import { useState } from "react";
+import { useServicesContext } from "../context/ServicesContext";
 
-// interface Services {
-//   // successMessage: string;
+const useServices = () => {
+  const { validate, setValidate } = useServicesContext();
 
-//   email: string;
-//   emailVerified: boolean;
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [email, setEmail] = useState("");
 
-//   // setSuccessMessage: (message: string) => void;
-//   errorMessage: string;
-//   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
-//   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-//   handleEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-// }
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
 
-// export const useServices = (): Services => {
-//   const [emailVerified, setEmailVerified] = useState(false);
+  const validateEmail = (email: string) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
 
-//   // const [successMessage, setSuccessMessage] = useStatef);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (validateEmail(email)) {
+      setValidate(true);
+    } else {
+      setErrorMessage(true);
+    }
+  };
 
-//   return {
-//     errorMessage,
-//     email,
-//     emailVerified,
+  return {
+    errorMessage,
+    email,
+    validate,
+    setErrorMessage,
+    handleEmailChange,
+    validateEmail,
+    handleSubmit,
+  };
+};
 
-//     setErrorMessage,
-//     handleSubmit,
-//     handleEmailChange,
-//   };
-// };
+export default useServices;

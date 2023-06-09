@@ -1,43 +1,21 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import "../styles/FormStyles.css";
-// import { useServices } from "../services/useServices";
-
-// type NewsLetterFormProps = {
-//   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-// };
+import useServices from "../services/useServices";
 
 const NewsLetterForm = () => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const [email, setEmail] = useState("");
-  const [validate, setValidate] = useState(false);
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const validateEmail = (email: string) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (validateEmail(email)) {
-      console.log("el correo está bien");
-      setValidate(true);
-    } else {
-      setErrorMessage("está mal");
-      console.log("el correo está mal");
-    }
-  };
-  // const { errorMessage, handleEmailChange, email, setErrorMessage } =
-  //   useServices();
+  const {
+    email,
+    errorMessage,
+    handleEmailChange,
+    handleSubmit,
+    setErrorMessage,
+  } = useServices();
 
   useEffect(() => {
     if (errorMessage) {
       const timer = setTimeout(() => {
-        setErrorMessage("");
+        setErrorMessage(false);
       }, 2000);
 
       return () => {
@@ -54,7 +32,7 @@ const NewsLetterForm = () => {
           <Form.Label
             style={{
               position: "relative",
-              left: "7rem",
+              left: "9rem",
               display: errorMessage ? "" : "none",
               color: "red",
             }}
@@ -70,7 +48,7 @@ const NewsLetterForm = () => {
             className={errorMessage ? "error-input" : ""}
           />
         </Form.Group>
-        <Button type="submit" variant="dark">
+        <Button type="submit" variant="dark" className="mt-3">
           Subscribe to monthly newsletter
         </Button>
       </Form>

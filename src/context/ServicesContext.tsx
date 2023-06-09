@@ -3,6 +3,13 @@ import { createContext, useContext, useState } from "react";
 interface ServicesContextValue {
   validate: boolean;
   setValidate: React.Dispatch<React.SetStateAction<boolean>>;
+  email: string | number;
+  errorMessage: boolean;
+  spinnerState: boolean;
+  setErrorMessage: React.Dispatch<React.SetStateAction<boolean>>;
+  setSpinnerState: React.Dispatch<React.SetStateAction<boolean>>;
+  handleEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const ServicesContext = createContext<ServicesContextValue | undefined>(
@@ -27,10 +34,42 @@ export const ServicesContextProvider = ({
   children,
 }: ServicesContextProviderProps) => {
   const [validate, setValidate] = useState(false);
+  const [email, setEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [spinnerState, setSpinnerState] = useState(false);
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const validateEmail = (email: string) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (validateEmail(email)) {
+      setValidate(true);
+      setSpinnerState(true);
+      setTimeout(() => {
+        setSpinnerState(false);
+      }, 1000);
+    } else {
+      setErrorMessage(true);
+    }
+  };
 
   const value: ServicesContextValue = {
+    errorMessage,
+    email,
     validate,
+    spinnerState,
     setValidate,
+    setErrorMessage,
+    setSpinnerState,
+    handleEmailChange,
+    handleSubmit,
   };
 
   return (

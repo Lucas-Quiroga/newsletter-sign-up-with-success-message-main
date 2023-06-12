@@ -1,18 +1,22 @@
+import { useState } from "react";
 import { Container, Button } from "react-bootstrap";
 import svgSuccess from "../assets/images/icon-success.svg";
 import { useServicesContext } from "../context/ServicesContext";
+import App from "../App";
 
 type SuccessMessageProp = {
   email: string | number;
 };
 
 const SuccessMessage = ({ email }: SuccessMessageProp) => {
-  const { setSpinnerState } = useServicesContext();
+  const { setSpinnerState, setValidate, validate } = useServicesContext();
 
-  function handleSpinner() {
-    setTimeout(() => {
+  async function handleSpinner() {
+    setSpinnerState(true);
+    await setTimeout(() => {
       setSpinnerState(false);
-    }, 2000);
+      setValidate(!validate);
+    }, 1000);
   }
 
   return (
@@ -39,8 +43,8 @@ const SuccessMessage = ({ email }: SuccessMessageProp) => {
             <span style={{ fontWeight: 700 }}>{email}</span>. Please open it and
             click the button inside to confirm your subscription.
           </p>
+
           <Button
-            href="/"
             style={{
               width: "100%",
               background: "#191a32",

@@ -3,3 +3,10 @@ body {
   overflow-y: hidden;
   background: #333a4b;
 }
+
+@media (max-width: 1000px) {
+  /* Estilos para pantallas con un ancho máximo de 750px */
+  body {
+    overflow-y: scroll;
+  }
+}

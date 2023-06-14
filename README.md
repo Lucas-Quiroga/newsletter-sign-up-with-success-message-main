@@ -8,7 +8,7 @@ This is a solution to the [Newsletter sign-up form with success message challeng
 
 ## Deployment 📦
 
-- [DEMO](https://login-register-user.netlify.app/) - Website
+- [DEMO](https://newsletter-sign-up-app.netlify.app/) - Website
 
 ## The Frontend Mentor Challenge
 

@@ -30,12 +30,9 @@ const NewsLetterForm = () => {
         <Form.Group controlId="formEmail">
           <Form.Label style={{ fontSize: "0.9rem" }}>Email Address</Form.Label>
           <Form.Label
-            style={{
-              position: "relative",
-              left: "11rem",
-              display: errorMessage ? "" : "none",
-              color: "red",
-            }}
+            className={`text-center mt-2 ${
+              errorMessage ? "d-block" : "d-none"
+            } text-danger`}
           >
             {errorMessage ? "Valid email required" : "Email Address"}
           </Form.Label>

@@ -1,12 +1,10 @@
 import iconList from "./../assets/images/icon-list.svg";
+import "../styles/InfoStyles.css";
 
 const Info = () => {
   return (
     <div className="container mt-5">
-      <h1
-        className="font-weight-bold"
-        style={{ fontSize: "3.6rem", color: "#24242b " }}
-      >
+      <h1 className="h1_info" style={{ fontSize: "3.5rem", color: "#24242b " }}>
         Stay updated!
       </h1>
       <p style={{ marginTop: 25 }}>
@@ -31,13 +29,6 @@ const Info = () => {
           <span>&nbsp;&nbsp; And much more!</span>
         </div>
       </div>
-      {/* <div className="attribution">
-        Challenge by{" "}
-        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">
-          Frontend Mentor
-        </a>
-        . Coded by <a href="#">Your Name Here</a>.
-      </div> */}
     </div>
   );
 };

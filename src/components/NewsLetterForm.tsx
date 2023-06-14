@@ -28,13 +28,18 @@ const NewsLetterForm = () => {
     <div className="container mt-5">
       <Form onSubmit={handleSubmit} className="d-flex flex-column">
         <Form.Group controlId="formEmail">
-          <Form.Label style={{ fontSize: "0.9rem" }}>Email Address</Form.Label>
           <Form.Label
-            className={`text-center mt-2 ${
-              errorMessage ? "d-block" : "d-none"
-            } text-danger`}
+            style={{
+              fontSize: "0.9rem",
+              color: "black",
+            }}
           >
-            {errorMessage ? "Valid email required" : "Email Address"}
+            <strong>Email Address</strong>
+          </Form.Label>
+          <Form.Label
+            className={`float-end ${errorMessage ? "" : "d-none"} text-danger`}
+          >
+            {errorMessage ? "Valid email required" : ""}
           </Form.Label>
 
           <Form.Control

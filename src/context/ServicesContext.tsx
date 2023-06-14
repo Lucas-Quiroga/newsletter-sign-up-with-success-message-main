@@ -1,4 +1,6 @@
 import { createContext, useContext, useState } from "react";
+import { Howl } from "howler";
+import soundFile from "../assets/sounds/sound.mp3";
 
 interface ServicesContextValue {
   validate: boolean;
@@ -38,6 +40,11 @@ export const ServicesContextProvider = ({
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [spinnerState, setSpinnerState] = useState(false);
 
+  const sound = new Howl({
+    src: [soundFile],
+    volume: 0.1,
+  });
+
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -51,6 +58,7 @@ export const ServicesContextProvider = ({
     e.preventDefault();
     if (validateEmail(email)) {
       setValidate(true);
+      sound.play();
       setSpinnerState(true);
       setTimeout(() => {
         setSpinnerState(false);

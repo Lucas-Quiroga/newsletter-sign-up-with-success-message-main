@@ -1,19 +1,11 @@
-import Info from "./components/Info";
-import svgDesktop from "./assets/images/illustration-sign-up-desktop.svg";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useServicesContext } from "./context/ServicesContext";
+import Info from "./components/Info";
 import NewsLetterForm from "./components/NewsLetterForm";
 import SuccessMessage from "./components/SuccessMessage";
-import { useServicesContext } from "./context/ServicesContext";
-import { Spinner } from "react-bootstrap";
+import svgDesktop from "./assets/images/illustration-sign-up-desktop.svg";
 import "./App.css";
-
-const cardStyles = {
-  background: "white",
-  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-  borderRadius: "2rem",
-  margin: "0",
-};
 
 function App() {
   const { validate, email, spinnerState } = useServicesContext();
@@ -31,13 +23,21 @@ function App() {
   }
 
   return (
-    <Container className="container d-flex align-items-center justify-content-center vh-100 mx-auto card-app ">
+    <Container className="container d-flex align-items-center justify-content-center vh-100 mx-auto card-app">
       {validate ? (
         <SuccessMessage email={email} />
       ) : (
-        <div style={cardStyles}>
-          <Container className="container p-4 mx-auto">
-            <Container className="container d-flex flex-column justify-content-center align-items-center">
+        <div
+          style={{
+            background: "white",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            borderRadius: "2rem",
+            margin: 0,
+          }}
+          className="divContainer"
+        >
+          <Container className=" p-4 mx-auto container_f">
+            <Container className=" d-flex flex-column justify-content-center align-items-center">
               <Row className="mx-auto justify-content-center col_flex g-1">
                 <Col lg={6} md={6} sm={12} xs={12} className="col_1">
                   <Info />
@@ -56,7 +56,7 @@ function App() {
                     style={{
                       maxWidth: "100%",
                     }}
-                    className="img_col img-fluid"
+                    className="img_col "
                   />
                 </Col>
               </Row>
